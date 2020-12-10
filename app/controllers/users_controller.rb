@@ -15,24 +15,13 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-
-
-    if @user["age"] < 18
-      return render json: {"transactionUUID": "#{SecureRandom.uuid}","error": "A idade deve ser maior que 18 anos"}, status: :bad_request
-    end
-
-
-    if @user["name"].nil?
-      return render json: {"transactionUUID": "#{SecureRandom.uuid}", "error": "Nome não pode ser nulo"}, status: :bad_request
-    end
-
-
-
-    if @user.save
-      render json: @user, status: :created, location: @user
+    @user = User.new
+    errors_user = @user.check_user(user_params)
+    if errors_user.nil?
+      new_user = User.new(user_params)
+      render json: new_user, status: :created, location: new_user if new_user.save 
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: errors_user[:desc_error], status: :bad_request
     end
   end
 
