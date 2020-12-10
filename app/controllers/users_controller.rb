@@ -17,6 +17,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+
+    if @user["age"] < 18
+      return render json: {"transactionUUID": "#{SecureRandom.uuid}","error": "A idade deve ser maior que 18 anos"}, status: :bad_request
+    end
+
+
+    if @user["name"].nil?
+      return render json: {"transactionUUID": "#{SecureRandom.uuid}", "error": "Nome não pode ser nulo"}, status: :bad_request
+    end
+
+
+
     if @user.save
       render json: @user, status: :created, location: @user
     else
