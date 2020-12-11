@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-
+ 
   # GET /users
   def index
     @users = User.all
@@ -17,11 +17,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new
     errors_user = @user.check_user(user_params)
+
     if errors_user.nil?
       new_user = User.new(user_params)
       render json: new_user, status: :created, location: new_user if new_user.save 
     else
-      render json: errors_user[:desc_error], status: :bad_request
+      status = "bad_request".to_sym
+      errors_user[:status_code] = Rack::Utils::SYMBOL_TO_STATUS_CODE[status]
+      render json: errors_user, status: status
     end
   end
 
