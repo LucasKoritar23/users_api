@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Projeto de desenvolvimento de API utilizando Rails e SQLITE
 
-Things you may want to cover:
+Procedimento:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Clonar o projeto e rodar o comando: Docker build .
+Rodar o comando para expor a porta 3000 e iniciar a imagem: docker run -d -p 3000:3000 --expose 3000 -t #id_da_imagem_docker
+Rodar o comando para iniciar o container : docker exec -it #id_do_container
