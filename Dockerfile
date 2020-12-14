@@ -12,14 +12,15 @@ RUN apk add build-base \
     libxslt-dev \
     openjdk8 \
     postgresql-dev \ 
-    ruby-nokogiri --no-cache
+    ruby-nokogiri --no-cache \
+    git \
+    bash \
+    vim \ 
+    sqlite \ 
+    sqlite-dev
 RUN apk add --no-cache tzdata
 ENV TZ America/Sao_Paulo
 
-RUN apk add git
-RUN apk add bash
-RUN apk add vim
-RUN apk add sqlite
-
 RUN gem install bundler
+RUN bundle install
 RUN chmod 777 -R /users_api
