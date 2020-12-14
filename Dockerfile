@@ -10,7 +10,6 @@ RUN apk add build-base \
     libpq \
     libxml2-dev \
     libxslt-dev \
-    openjdk8 \
     postgresql-dev \ 
     ruby-nokogiri --no-cache \
     git \
@@ -23,4 +22,5 @@ ENV TZ America/Sao_Paulo
 
 RUN gem install bundler
 RUN bundle install
+RUN rails db:migrate
 RUN chmod 777 -R /users_api
